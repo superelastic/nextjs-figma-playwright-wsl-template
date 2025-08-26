@@ -15,7 +15,10 @@ Production-ready template for Next.js projects using Figma MCP for design extrac
 
 ```bash
 # Create new project from this template
-gh repo create my-new-project --template superelastic/nextjs-figma-playwright-wsl-template
+gh repo create my-new-dashboard --private --template superelastic/nextjs-figma-playwright-wsl-template
+
+# Clone
+git clone git@github.com:superelastic/my-new-dashboard.git
 
 # Navigate to project
 cd my-new-project
