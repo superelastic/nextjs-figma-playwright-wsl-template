@@ -23,10 +23,10 @@ cd my-new-project
 # Run diagnostics (checks for common issues)
 node .claude/examples/next-app-setup.js
 
-# Install dependencies
+# Install dependencies (includes TypeScript, Tailwind, ESLint, Playwright)
 npm install
 
-# Install Playwright browsers
+# Install Playwright browsers  
 npx playwright install chromium
 
 # Start development server
