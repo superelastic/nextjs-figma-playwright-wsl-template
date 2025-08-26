@@ -33,6 +33,35 @@ npx playwright install chromium
 npm run dev
 ```
 
+## ⚡ Figma MCP Setup (Required for Design Extraction)
+
+To use Figma with Claude Code, you need to install the Figma MCP server:
+
+```bash
+# Install Figma MCP server (one-time setup)
+claude mcp add --transport http figma-dev-mode-mcp-server http://127.0.0.1:3845/mcp
+```
+
+**After installation**, Figma tools will be available as:
+- `mcp__figma-dev-mode-mcp-server__get_image` - Extract design images
+- `mcp__figma-dev-mode-mcp-server__get_code` - Generate component code
+
+**⚠️ Important**: This is a **one-time setup per machine**, not per project.
+
+### Verify Installation
+
+In Claude Code, check if MCP tools are available:
+```javascript
+// These should work after MCP setup:
+const image = await mcp__figma-dev-mode-mcp-server__get_image({
+  nodeId: "your-node-id",
+  clientFrameworks: "react,next.js", 
+  clientLanguages: "javascript,typescript,html,css"
+});
+```
+
+If you see "tool not found" errors, the MCP server needs to be installed.
+
 ## 📁 Project Structure
 
 ```
@@ -119,6 +148,7 @@ This checks for:
 | Port already in use | Kill zombie processes: `pkill -f "next-server"` |
 | Playwright "Not connected" | Use direct API, not MCP |
 | Module not found | Check tsconfig paths |
+| Figma MCP "tool not found" | Install MCP server: `claude mcp add --transport http figma-dev-mode-mcp-server http://127.0.0.1:3845/mcp` |
 
 ### More Help
 See `.claude/troubleshooting.md` for detailed solutions.
