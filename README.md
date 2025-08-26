@@ -101,14 +101,47 @@ This template includes solutions for common issues:
 
 ## 🎨 Working with Figma
 
+### Example: Building from a Figma Mockup
+
+Here's a complete workflow example that was used to create the FRED Economic Dashboard:
+
+**Claude Code Prompt:**
+```
+Using the following figma mockup https://www.figma.com/design/3JYlPbw1HsEDaSHkGqClRi/key-indicators?node-id=0-1&p=f&t=C7FGjeiFE3vUYB76-11 use the figma dev MCP server to analyze the mockup and build the underlying code in this next.js application. Use the recharts library for creating charts to make this a web application. Check how this application looks using the playwright MCP server and verify it looks as close to the mock as possible.
+```
+
+This demonstrates:
+- **Figma URL extraction**: Getting the node-id from the URL (`node-id=0-1`)
+- **MCP integration**: Using Figma MCP to analyze the design
+- **Library specification**: Requesting specific libraries (recharts)
+- **Visual verification**: Using Playwright for comparison
+
+### Basic Figma MCP Usage
+
 ```javascript
 // In Claude Code, extract design:
 const design = await mcp__figma-dev-mode-mcp-server__get_image({
-  nodeId: "your-node-id",
+  nodeId: "0-1", // From the Figma URL
   clientFrameworks: "react,next.js",
   clientLanguages: "javascript,typescript,html,css"
 });
+
+// Get the component code:
+const code = await mcp__figma-dev-mode-mcp-server__get_code({
+  nodeId: "0-1",
+  clientFrameworks: "react,next.js", 
+  clientLanguages: "javascript,typescript,html,css"
+});
 ```
+
+### Tips for Best Results
+
+1. **Extract node ID from URL**: `node-id=22-21` becomes `nodeId: "22-21"`
+2. **Specify your stack**: Include "react,next.js" in clientFrameworks
+3. **Request specific libraries**: Mention charts libraries, UI frameworks, etc.
+4. **Iterate with screenshots**: Use Playwright to verify visual accuracy
+
+**📖 Detailed Example**: See [`.claude/examples/figma-to-dashboard-example.md`](.claude/examples/figma-to-dashboard-example.md) for a complete walkthrough of this workflow.
 
 ## 🧪 Testing with Playwright
 
