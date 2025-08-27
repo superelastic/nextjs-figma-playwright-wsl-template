@@ -32,8 +32,8 @@ npm install
 # Install Playwright browsers  
 npx playwright install chromium
 
-# Start development server
-npm run dev
+# Start development  (deprecated, the Claude prompt will take care of it)
+#npm run dev
 ```
 
 ## ⚡ Figma MCP Setup (Required for Design Extraction)
