@@ -35,12 +35,8 @@ gh repo clone superelastic/claude-knowledge ~/.claude-knowledge-reference
 # install and check Figma MCP 
 claude mcp add --transport http figma-dev-mode-mcp-server http://127.0.0.1:3845/mcp
 
-# Install Playwright browsers (? knowledge-base may install it)
-wget -q -O - https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb >  /tmp/chrome.deb && sudo apt install -y /tmp/chrome.deb
-npx playwright install chromium
-
-# Start development using Claude. Try the following prompt:
-Read @.claude-knowledge-reference to understand learnings about the use of Figma and Playwright for this project. Read @.claude-knowledge-reference/design-systems/FRED_DASHBOARD_DESIGN_SYSTEM.md to understand important aspects of the graphical layout of this project. When ready, use the following figma mockup https://www.figma.com/design/3JYlPbw1HsEDaSHkGqClRi/key-indicators?node-id=22-21&t=KammPmu5bwpsuE0O-11 via the figma dev MCP server to analyze the mockup and build the underlying code in the next.js application. Use the recharts library for creating charts to make this a web application. Check how this application looks using the playwright MCP server and verify it looks as close to the mockup as possible.
+# Start development using Claude. Try the following prompt: (assuming claude-knowledge folder is in the project root)
+Read @claude-knowledge to understand learnings about the use of Figma and Playwright for this project. Read @claude-knowledge/design-systems/FRED_DASHBOARD_DESIGN_SYSTEM.md to understand important aspects of the graphical layout of this project. When ready, use the following figma mockup https://www.figma.com/design/3JYlPbw1HsEDaSHkGqClRi/key-indicators?node-id=22-21&t=KammPmu5bwpsuE0O-11 via the figma dev MCP server to analyze the mockup and build the underlying code in the next.js application. Use the recharts library for creating charts to make this a web application. Check how this application looks using the playwright MCP server and verify it looks as close to the mockup as possible.
 ```
 
 **After installation**, Figma tools will be available as:
