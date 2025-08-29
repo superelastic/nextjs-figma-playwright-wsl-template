@@ -20,7 +20,7 @@ gh auth login
 # Create new project from this template
 gh repo create my-new-dashboard --private --template superelastic/nextjs-figma-playwright-wsl-template
 
-# Clone
+# Clone (this should be on the \\wsl.localhost\Ubuntu\ partition)
 git clone git@github.com:superelastic/my-new-dashboard.git
 
 # Restart IDE with your new project home directory
