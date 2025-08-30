@@ -24,7 +24,7 @@ gh repo create my-new-dashboard --private --template superelastic/nextjs-figma-p
 git clone git@github.com:superelastic/my-new-dashboard.git
 
 # Restart IDE with your new project home directory
-cd my-new-project
+cd my-new-dashboard
 
 # Run diagnostics (checks for common issues)
 node .claude/examples/next-app-setup.js
