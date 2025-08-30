@@ -1,0 +1,295 @@
+/**
+ * FRED Dashboard Design System - Complete CSS Library
+ * 
+ * This CSS file contains all design system classes needed for dashboard projects.
+ * Copy this file to your project and import it in your main CSS file or layout.
+ * 
+ * CRITICAL: Use these CSS classes instead of custom Tailwind utilities to avoid compilation issues.
+ * 
+ * Source: Extracted from production FRED Economic Indicators Dashboard
+ * Compatibility: Next.js 15+, React 19+, Tailwind CSS 3.4+
+ * Status: ✅ Production-tested with visual verification
+ */
+
+/* ==========================================================================
+   CSS VARIABLES (DESIGN TOKENS)
+   ========================================================================== */
+
+:root {
+  /* Color System */
+  --color-bg-primary: #FFFFFF;
+  --color-bg-secondary: #F1F5F9;
+  --color-bg-tertiary: #E2E8F0;
+  --color-text-primary: #0F172A;
+  --color-text-secondary: #334155;
+  --color-text-tertiary: #64748B;
+  --color-text-quaternary: #94A3B8;
+  --color-brand-primary: #0F52BA;
+  --color-brand-hover: #0D47A1;
+  --color-chart-primary: #0F52BA;
+  --color-chart-secondary: #7C3AED;
+  --color-chart-tertiary: #10B981;
+  --color-chart-quaternary: #F59E0B;
+  
+  /* Spacing */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 20px;
+  --spacing-xl: 24px;
+  --spacing-2xl: 32px;
+  
+  /* Layout */
+  --sidebar-width: 280px;
+  --chart-height: 180px;
+  --panel-padding: 24px;
+  --panel-radius: 8px;
+  --gap-charts: 20px;
+}
+
+/* ==========================================================================
+   LAYOUT COMPONENTS
+   ========================================================================== */
+
+/* Dashboard Grid Layout - CRITICAL: Use this instead of Tailwind grid utilities */
+.ds-dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--gap-charts);
+}
+
+/* Responsive Grid - Stack on smaller screens */
+@media (max-width: 1024px) {
+  .ds-dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Sidebar Container */
+.ds-sidebar {
+  width: var(--sidebar-width);
+  background: var(--color-bg-primary);
+  box-shadow: 1px 0 3px rgba(0, 0, 0, 0.05);
+}
+
+/* Chart Container - Standard height for all charts */
+.ds-chart-container {
+  height: var(--chart-height);
+  width: 100%;
+}
+
+/* ==========================================================================
+   NAVIGATION COMPONENTS
+   ========================================================================== */
+
+/* Navigation Item - Base styles */
+.ds-nav-item {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  transition: all 0.2s ease;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  text-align: left;
+}
+
+/* Navigation Item - Hover state */
+.ds-nav-item:hover {
+  background: var(--color-bg-secondary);
+  color: var(--color-text-primary);
+}
+
+/* Navigation Item - Active state */
+.ds-nav-item.active {
+  background: var(--color-brand-primary);
+  color: #FFFFFF;
+}
+
+/* Navigation Item - Focus state for accessibility */
+.ds-nav-item:focus {
+  outline: 2px solid var(--color-brand-primary);
+  outline-offset: 2px;
+}
+
+/* ==========================================================================
+   PANEL COMPONENTS
+   ========================================================================== */
+
+/* Panel Container - Base panel styling */
+.ds-panel {
+  background: var(--color-bg-primary);
+  padding: var(--panel-padding);
+  border-radius: var(--panel-radius);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+/* Panel hover effect (optional) */
+.ds-panel:hover {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  transition: box-shadow 0.2s ease;
+}
+
+/* ==========================================================================
+   TYPOGRAPHY COMPONENTS
+   ========================================================================== */
+
+/* Main page title */
+.ds-title {
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 32px;
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+/* Subtitle/description text */
+.ds-subtitle {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  color: var(--color-text-tertiary);
+  margin: 0;
+}
+
+/* Chart panel title */
+.ds-chart-title {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  color: var(--color-text-primary);
+  margin: 0 0 8px 0;  /* Proper spacing below title */
+}
+
+/* Chart data source */
+.ds-chart-source {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  color: var(--color-text-quaternary);
+  margin: 0 0 16px 0;  /* Proper spacing below source */
+}
+
+/* ==========================================================================
+   UTILITY CLASSES
+   ========================================================================== */
+
+/* Background colors using design tokens */
+.bg-bg-primary { background-color: var(--color-bg-primary); }
+.bg-bg-secondary { background-color: var(--color-bg-secondary); }
+.bg-bg-tertiary { background-color: var(--color-bg-tertiary); }
+
+/* Text colors using design tokens */
+.text-text-primary { color: var(--color-text-primary); }
+.text-text-secondary { color: var(--color-text-secondary); }
+.text-text-tertiary { color: var(--color-text-tertiary); }
+.text-text-quaternary { color: var(--color-text-quaternary); }
+
+/* Brand colors */
+.text-brand-primary { color: var(--color-brand-primary); }
+.bg-brand-primary { background-color: var(--color-brand-primary); }
+
+/* ==========================================================================
+   RESPONSIVE DESIGN
+   ========================================================================== */
+
+/* Tablet and below */
+@media (max-width: 768px) {
+  .ds-sidebar {
+    width: 100%;
+    height: auto;
+    position: static;
+  }
+  
+  .ds-dashboard-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+  }
+  
+  .ds-panel {
+    padding: var(--spacing-md);
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .ds-chart-container {
+    height: 160px; /* Slightly smaller charts on mobile */
+  }
+  
+  .ds-title {
+    font-size: 20px;
+    line-height: 28px;
+  }
+}
+
+/* ==========================================================================
+   CHART-SPECIFIC UTILITIES
+   ========================================================================== */
+
+/* Chart color variables for recharts */
+.recharts-wrapper {
+  /* Ensure charts fill container properly */
+  font-family: inherit;
+}
+
+/* Standard chart colors (use these in your chart configurations) */
+:root {
+  --chart-color-1: var(--color-chart-primary);    /* Blue: #0F52BA */
+  --chart-color-2: var(--color-chart-secondary);  /* Purple: #7C3AED */
+  --chart-color-3: var(--color-chart-tertiary);   /* Green: #10B981 */
+  --chart-color-4: var(--color-chart-quaternary); /* Orange: #F59E0B */
+}
+
+/* ==========================================================================
+   ACCESSIBILITY IMPROVEMENTS
+   ========================================================================== */
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .ds-nav-item.active {
+    outline: 2px solid currentColor;
+  }
+  
+  .ds-panel {
+    border: 1px solid var(--color-text-tertiary);
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .ds-nav-item,
+  .ds-panel {
+    transition: none;
+  }
+}
+
+/* Focus indicators for keyboard navigation */
+.ds-nav-item:focus-visible {
+  outline: 2px solid var(--color-brand-primary);
+  outline-offset: 2px;
+}
+
+/* ==========================================================================
+   DEBUGGING UTILITIES (Remove in production)
+   ========================================================================== */
+
+/* Uncomment these during development to visualize layout */
+/*
+.ds-dashboard-grid {
+  border: 2px dashed red;
+}
+
+.ds-panel {
+  border: 1px dashed blue;
+}
+
+.ds-chart-container {
+  border: 1px dashed green;
+}
+*/
