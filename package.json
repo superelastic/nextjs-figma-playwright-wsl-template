@@ -9,7 +9,10 @@
     "lint": "eslint",
     "test": "playwright test",
     "test:ui": "playwright test --ui",
-    "diagnostic": "node .claude/examples/next-app-setup.js"
+    "diagnostic": "node .claude/examples/next-app-setup.js",
+    "verify-layout": "node tools/compare-figma-layout.js",
+    "verify-layout:debug": "node tools/compare-figma-layout.js --debug",
+    "test:layout": "npm run verify-layout && playwright test"
   },
   "dependencies": {
     "next": "15.5.0",

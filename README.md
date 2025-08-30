@@ -43,6 +43,12 @@ export default function Page() {
 ```bash
 # Run these checks to ensure everything works:
 npm run dev
+
+# NEW: Automated layout verification 🆕
+npm run verify-layout
+# Should return: ✅ LAYOUT MATCH CONFIRMED
+
+# Manual verification:
 curl -s http://localhost:3000/_next/static/css/app.css | grep "ds-dashboard-grid"
 # Should return CSS rule - if empty, check your imports
 ```
@@ -162,12 +168,71 @@ For detailed understanding of why these solutions work and prevent future issues
 - **Want to customize?** → Read [docs/DESIGN_SYSTEM_GUIDE.md](docs/DESIGN_SYSTEM_GUIDE.md)
 - **Need to verify?** → Run [tests/design-system-verification.spec.ts](tests/design-system-verification.spec.ts)
 
+## 🔍 Automated Layout Verification
+
+### NEW: Prevent Layout Failures Automatically
+
+This template now includes automated Figma → Playwright layout comparison to prevent common implementation failures:
+
+```bash
+# Quick layout verification
+npm run verify-layout
+
+# With detailed debugging
+npm run verify-layout:debug
+
+# Full test suite including layout verification
+npm run test:layout
+```
+
+#### What It Prevents:
+- ❌ **2x2 grids rendering as single columns** (saves 2-6 hours debugging)
+- ❌ **Missing or misplaced elements** (catches immediately vs late discovery) 
+- ❌ **Inconsistent spacing and positioning** (objective measurement vs subjective assessment)
+
+#### How It Works:
+1. **Extracts layout patterns** from Figma designs (2x2-grid, vertical-stack, etc.)
+2. **Analyzes live application** using Playwright element detection
+3. **Compares automatically** and provides specific fix recommendations
+4. **Integrates with CI/CD** to prevent layout regressions
+
+#### Quick Setup:
+```javascript
+// Update figma-layout.config.js
+module.exports = {
+  figmaNodeId: "your-node-id",        // From Figma URL
+  elementSelector: ".chart-panel",    // Your CSS selector
+  expectedPattern: "2x2-grid",       // Your layout pattern
+};
+```
+
+#### Success Output:
+```
+✅ LAYOUT MATCH CONFIRMED
+   Pattern: 2x2-grid
+   Elements: 4  
+   Confidence: 95.0%
+```
+
+#### Failure Output with Fix:
+```
+❌ LAYOUT MISMATCH DETECTED
+   Expected: 2x2-grid
+   Actual: 1x4-vertical
+
+🔧 SUGGESTED FIX:
+   Use: .ds-dashboard-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+   Instead of Tailwind utilities like "grid-cols-2"
+```
+
+See [tools/README.md](tools/README.md) for complete documentation.
+
 ## 🛡️ Quality Assurance
 
-### Verification Checklist
-After implementation, verify these work:
+### Manual Verification Checklist
+After implementation AND automated verification, verify these work:
 
-- [ ] **Grid Layout**: 4 panels in 2x2 grid (not single column)
+- [ ] **Grid Layout**: `npm run verify-layout` returns ✅ LAYOUT MATCH CONFIRMED
 - [ ] **Navigation**: Clicking items changes blue highlight
 - [ ] **Charts**: All 4 charts render at 180px height
 - [ ] **Responsive**: Layout stacks properly on mobile
