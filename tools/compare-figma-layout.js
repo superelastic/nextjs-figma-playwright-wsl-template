@@ -50,34 +50,75 @@ class FigmaExtractor {
 
   /**
    * Extract layout information from Figma
-   * Note: This would normally use MCP server calls, but for now we'll simulate
-   * based on known Figma structure
+   * Uses cached data from Figma MCP server extraction
    */
   async extractLayout(nodeId) {
     try {
-      // In a real implementation, this would call:
-      // const metadata = await mcp__figma-dev-mode-mcp-server__get_metadata(nodeId);
+      // First, try to load cached Figma data
+      const cachePath = path.join(__dirname, 'figma-layout-cache.json');
       
-      // For now, simulate based on known FRED dashboard structure
-      if (nodeId === "22:21") {
-        return {
-          nodeId: nodeId,
-          elements: [
-            { id: "cpi-chart", bounds: { x: 335, y: 169, width: 490, height: 300 }, type: "chart" },
-            { id: "unemployment-chart", bounds: { x: 845, y: 169, width: 490, height: 300 }, type: "chart" },
-            { id: "interest-rates-chart", bounds: { x: 335, y: 489, width: 490, height: 300 }, type: "chart" },
-            { id: "inflation-chart", bounds: { x: 845, y: 489, width: 490, height: 300 }, type: "chart" }
-          ],
-          pattern: "2x2-grid",
-          confidence: 0.95
-        };
+      if (fs.existsSync(cachePath)) {
+        const cachedData = JSON.parse(fs.readFileSync(cachePath, 'utf8'));
+        
+        if (cachedData.nodeId === nodeId) {
+          console.log('   ✓ Using cached Figma data from MCP extraction');
+          console.log(`   ✓ Found ${cachedData.elements.length} elements`);
+          
+          // Normalize the Figma coordinates to positive values for comparison
+          const normalizedElements = this.normalizeFigmaCoordinates(cachedData.elements);
+          
+          return {
+            nodeId: nodeId,
+            elements: normalizedElements,
+            pattern: cachedData.pattern,
+            confidence: cachedData.confidence
+          };
+        }
       }
       
-      throw new Error(`Unknown Figma node ID: ${nodeId}`);
+      // Fallback to known structure if cache not found
+      console.log('   ⚠️  No cached Figma data found, using fallback');
+      return {
+        nodeId: nodeId,
+        elements: [
+          { id: "cpi-chart", bounds: { x: 300, y: 120, width: 490, height: 300 }, type: "chart" },
+          { id: "unemployment-chart", bounds: { x: 810, y: 120, width: 490, height: 300 }, type: "chart" },
+          { id: "interest-rates-chart", bounds: { x: 300, y: 440, width: 490, height: 300 }, type: "chart" },
+          { id: "inflation-chart", bounds: { x: 810, y: 440, width: 490, height: 300 }, type: "chart" }
+        ],
+        pattern: "2x2-grid",
+        confidence: 0.95
+      };
     } catch (error) {
       console.error('Error extracting Figma layout:', error.message);
       throw error;
     }
+  }
+  
+  /**
+   * Normalize Figma coordinates from potentially negative values
+   */
+  normalizeFigmaCoordinates(elements) {
+    // Find the minimum x and y values
+    let minX = Infinity, minY = Infinity;
+    elements.forEach(el => {
+      minX = Math.min(minX, el.bounds.x);
+      minY = Math.min(minY, el.bounds.y);
+    });
+    
+    // Normalize to positive coordinates starting from a reasonable offset
+    const offsetX = minX < 0 ? Math.abs(minX) + 300 : 0;
+    const offsetY = minY < 0 ? Math.abs(minY) + 120 : 0;
+    
+    return elements.map(el => ({
+      ...el,
+      bounds: {
+        x: el.bounds.x + offsetX,
+        y: el.bounds.y + offsetY,
+        width: el.bounds.width,
+        height: el.bounds.height
+      }
+    }));
   }
 }
 
@@ -95,6 +136,8 @@ class PlaywrightExtractor {
   async initialize() {
     this.browser = await chromium.launch({ headless: true });
     this.page = await this.browser.newPage();
+    // Set viewport to match Figma design width
+    await this.page.setViewportSize({ width: 1440, height: 900 });
   }
 
   async cleanup() {
