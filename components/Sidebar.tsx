@@ -47,13 +47,13 @@ export default function Sidebar({ onSectionChange }: SidebarProps) {
   };
 
   return (
-    <aside className="ds-sidebar h-screen flex flex-col">
-      <div className="p-6">
-        <h1 className="text-lg font-bold text-text-primary">FRED Indicators</h1>
-        <p className="text-sm text-text-tertiary mt-1">Economic Data Dashboard</p>
+    <aside className="ds-sidebar">
+      <div>
+        <h1 className="ds-sidebar-title">Dashboard Template</h1>
+        <p className="ds-sidebar-subtitle">Next.js + Figma + Playwright</p>
       </div>
       
-      <nav className="flex-1 px-4">
+      <nav className="ds-nav-list">
         {navItems.map((item) => {
           const Icon = item.icon;
           const isActive = activeItem === item.id;
@@ -62,22 +62,21 @@ export default function Sidebar({ onSectionChange }: SidebarProps) {
             <button
               key={item.id}
               onClick={() => handleNavClick(item.id)}
-              className={`ds-nav-item mb-1 ${isActive ? 'active' : ''}`}
+              className={`ds-nav-item ${isActive ? 'active' : ''}`}
               aria-label={`Navigate to ${item.label}`}
               type="button"
             >
-              <Icon size={18} className="mr-3 flex-shrink-0" />
-              <span className="flex-1 text-left">{item.label}</span>
-              <ChevronRight size={16} className="opacity-50" />
+              <Icon size={18} />
+              <span>{item.label}</span>
             </button>
           );
         })}
       </nav>
       
-      <div className="p-4 border-t border-gray-200">
-        <p className="text-xs text-text-quaternary">
-          Data provided by Federal Reserve<br />
-          Economic Data (FRED)
+      <div className="ds-footer">
+        <p className="ds-footer-text">
+          Template ready for<br />
+          dashboard development
         </p>
       </div>
     </aside>
