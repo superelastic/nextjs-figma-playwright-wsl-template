@@ -176,23 +176,168 @@
 }
 
 /* ==========================================================================
-   UTILITY CLASSES
+   SEMANTIC CLASSES (Use these instead of utility classes)
    ========================================================================== */
 
-/* Background colors using design tokens */
-.bg-bg-primary { background-color: var(--color-bg-primary); }
-.bg-bg-secondary { background-color: var(--color-bg-secondary); }
-.bg-bg-tertiary { background-color: var(--color-bg-tertiary); }
+/* Loading and placeholder states */
+.ds-loading-text {
+  color: var(--color-text-tertiary);
+  font-size: 14px;
+  font-weight: 400;
+}
 
-/* Text colors using design tokens */
-.text-text-primary { color: var(--color-text-primary); }
-.text-text-secondary { color: var(--color-text-secondary); }
-.text-text-tertiary { color: var(--color-text-tertiary); }
-.text-text-quaternary { color: var(--color-text-quaternary); }
+.ds-placeholder-text {
+  color: var(--color-text-tertiary);
+  font-size: 14px;
+  font-style: italic;
+}
 
-/* Brand colors */
-.text-brand-primary { color: var(--color-brand-primary); }
-.bg-brand-primary { background-color: var(--color-brand-primary); }
+/* Error states */
+.ds-error-text {
+  color: #ef4444;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* Success states */
+.ds-success-text {
+  color: #10b981;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* Info states */
+.ds-info-text {
+  color: var(--color-text-secondary);
+  font-size: 14px;
+}
+
+/* Background utilities (only use for containers) */
+.ds-bg-primary { background-color: var(--color-bg-primary); }
+.ds-bg-secondary { background-color: var(--color-bg-secondary); }
+.ds-bg-tertiary { background-color: var(--color-bg-tertiary); }
+
+/* ==========================================================================
+   FORM COMPONENTS
+   ========================================================================== */
+
+/* Form container */
+.ds-form {
+  margin-top: var(--spacing-xl);
+}
+
+/* Form group - single field container */
+.ds-form-group {
+  margin-bottom: var(--spacing-lg);
+}
+
+/* Form labels */
+.ds-form-label {
+  display: block;
+  margin-bottom: var(--spacing-sm);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text-primary);
+}
+
+/* Form inputs */
+.ds-form-input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--color-text-quaternary);
+  border-radius: 6px;
+  font-size: 14px;
+  color: var(--color-text-primary);
+  background: var(--color-bg-primary);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.ds-form-input:focus {
+  outline: none;
+  border-color: var(--color-brand-primary);
+  box-shadow: 0 0 0 3px rgba(15, 82, 186, 0.1);
+}
+
+.ds-form-input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background: var(--color-bg-secondary);
+}
+
+/* Error state input */
+.ds-input-error {
+  border-color: #ef4444 !important;
+}
+
+.ds-input-error:focus {
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1) !important;
+}
+
+/* Form select */
+.ds-form-select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--color-text-quaternary);
+  border-radius: 6px;
+  font-size: 14px;
+  color: var(--color-text-primary);
+  background: var(--color-bg-primary);
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+.ds-form-select:focus {
+  outline: none;
+  border-color: var(--color-brand-primary);
+  box-shadow: 0 0 0 3px rgba(15, 82, 186, 0.1);
+}
+
+.ds-form-select:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background: var(--color-bg-secondary);
+}
+
+/* Form actions container */
+.ds-form-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-xl);
+}
+
+/* Primary button */
+.ds-btn-primary {
+  padding: 10px 20px;
+  background: var(--color-brand-primary);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.ds-btn-primary:hover:not(:disabled) {
+  background: var(--color-brand-hover);
+  transform: translateY(-1px);
+}
+
+.ds-btn-primary:active {
+  transform: translateY(0);
+}
+
+.ds-btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.ds-btn-primary:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(15, 82, 186, 0.3);
+}
 
 /* ==========================================================================
    RESPONSIVE DESIGN

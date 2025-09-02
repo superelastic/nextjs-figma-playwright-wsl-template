@@ -286,22 +286,22 @@ export default function CompleteDashboardExample() {
         return (
           <>
             <ChartPanel title={`${selectedSection} - Chart 1`} source="FRED">
-              <div className="flex items-center justify-center h-full text-text-tertiary">
+              <div className="flex items-center justify-center h-full ds-placeholder-text">
                 No data available for {selectedSection}
               </div>
             </ChartPanel>
             <ChartPanel title={`${selectedSection} - Chart 2`} source="FRED">
-              <div className="flex items-center justify-center h-full text-text-tertiary">
+              <div className="flex items-center justify-center h-full ds-placeholder-text">
                 No data available for {selectedSection}
               </div>
             </ChartPanel>
             <ChartPanel title={`${selectedSection} - Chart 3`} source="FRED">
-              <div className="flex items-center justify-center h-full text-text-tertiary">
+              <div className="flex items-center justify-center h-full ds-placeholder-text">
                 No data available for {selectedSection}
               </div>
             </ChartPanel>
             <ChartPanel title={`${selectedSection} - Chart 4`} source="FRED">
-              <div className="flex items-center justify-center h-full text-text-tertiary">
+              <div className="flex items-center justify-center h-full ds-placeholder-text">
                 No data available for {selectedSection}
               </div>
             </ChartPanel>

@@ -12,7 +12,11 @@
     "diagnostic": "node .claude/examples/next-app-setup.js",
     "verify-layout": "node tools/compare-figma-layout.js",
     "verify-layout:debug": "node tools/compare-figma-layout.js --debug",
-    "test:layout": "npm run verify-layout && playwright test"
+    "verify-styles": "node verify-styles.js",
+    "test:design-system": "npm run verify-styles && playwright test",
+    "test:layout": "npm run verify-layout && playwright test",
+    "dev:verified": "npm run verify-styles && next dev",
+    "test:full": "npm run verify-styles && npm run verify-layout && playwright test"
   },
   "dependencies": {
     "@tailwindcss/postcss": "^4.1.12",
